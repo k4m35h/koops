@@ -4,6 +4,7 @@ data = '''
     [lang]php[/lang]
     [terminate];[/terminate]
     [template]<?php\n{code}[/template]
+    [block]{\n{code}\n}[/block]
 [/config]
 [assignment]
     [default]${variable} = {value}[/default]
