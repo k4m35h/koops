@@ -1,6 +1,7 @@
 import re
 data = '''
 [config]
+    [lang]php[/lang]
     [terminate];[/terminate]
     [template]<?php\n{code}[/template]
 [/config]
@@ -9,4 +10,16 @@ data = '''
     [ifelse]${variable} = ({condition})? {value} : {else}[/ifelse]
 [/assignment]
 '''
-print re.findall(r'\[([a-z]+)\]([^\0]+)\[/\1\]',data, re.M|re.I)
+
+bbcode = re.compile(r'\[([a-z]+)\]([^\0]+)\[/\1\]', re.M|re.I)
+
+def convert(data):
+    node = {}
+    process = bbcode.findall(data)
+    if len(process) == 0:
+        return data
+    for itm in process:
+        node[itm[0]] = convert(itm[1])
+    return node
+
+print convert(data)
